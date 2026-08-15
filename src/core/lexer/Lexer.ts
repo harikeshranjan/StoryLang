@@ -6,6 +6,7 @@ export class Lexer {
 	private cursor: number = 0;
 	private line: number = 1;
 	private column: number = 1;
+	private afterAt: boolean = false;
 
 	/**
 	 * Whether the lexer is currently at the beginning
@@ -54,6 +55,11 @@ export class Lexer {
 			return this.scanSingleLineComment();
 		}
 
+		if (this.afterAt) {
+			this.afterAt = false;
+			return this.scanIdentifier();
+		}
+
 		if (this.peek() === ":") {
 			return this.consumeSingleChar(TokenType.COLON);
 		}
@@ -65,6 +71,8 @@ export class Lexer {
 
 		if (this.peek() === "@") {
 			this.atLineStart = false;
+			this.afterAt = true;
+
 			return this.consumeSingleChar(TokenType.AT);
 		}
 
