@@ -244,20 +244,20 @@ export class Parser {
 
 	// HELPER FUNCTIONS
 	private consumeLineText(message: string): string {
-		if (this.check(TokenType.TEXT)) {
-			const token = this.advance();
-			this.consumeOptionalNewLine();
+		let text = "";
 
-			return token.value;
+		while (!this.isAtEnd() && !this.check(TokenType.NEWLINE)) {
+			text += this.advance().value + " ";
 		}
 
-		if (this.check(TokenType.NEWLINE)) {
-			this.advance();
-			return "";
+		this.consumeOptionalNewLine();
+
+		const trimmed = text.trim();
+		if (trimmed.length === 0 && message) {
+			this.reportError(message, this.peek());
 		}
 
-		this.reportError(message, this.peek());
-		return "";
+		return trimmed;
 	}
 
 	private skipNewlineAndComments(): void {

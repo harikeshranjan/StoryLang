@@ -8,11 +8,12 @@ genre: Fantasy
 
 The rain never: stopped.
 
-Alice:
-We shouldn't be here.
+Alice: We shouldn't be here.
 
-Bob:
-We came too far to turn back.
+I am trying to check the reponse of Alice as well
+
+Bob:We came too far to turn back.
+And the same goes for Bob.
 
 // This is a comment
 
